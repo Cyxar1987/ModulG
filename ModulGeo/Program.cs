@@ -9,7 +9,8 @@ namespace ModulGeo
 {
     class Program
     {
-        static List<Monolit> list;       
+        static List<Monolit> list;
+        static Monolit mon;
         // Заполняем List<> тестовыми монолитами
         static void TestAddMonolits()
         {
@@ -22,7 +23,7 @@ namespace ModulGeo
                   new Monolit("1241", 0.687, 9.32, 14.15),
                   new Monolit("1241", 0.643, 11.02, 16.32),
             };
-        }        
+        }
         //  Метод для записи данных в файл
         static void WritrToFile(StringBuilder stringBuilder)
         {
@@ -32,10 +33,68 @@ namespace ModulGeo
             }
         }
 
+        //  Метод для заполнения полей монолита
+        static Monolit CreateMonolit()
+        {
+            mon = new Monolit();
+            double res;          
+
+            Console.WriteLine("Введите номер скважины");
+            mon.MineName = Console.ReadLine();
+            Console.WriteLine();
+        Label_E:
+            Console.WriteLine("Введите коэффициент пористости");
+            if (Double.TryParse(Console.ReadLine(), out res))
+            {
+                mon.E = res;
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ввовд! Повторите еще раз");
+                goto Label_E;
+            }
+
+        Label_LabNat:
+            Console.WriteLine("Введите лабораторный модуль в естественном состоянии");
+            if (Double.TryParse(Console.ReadLine(), out res))
+            {
+                mon.LabModulNature = res;
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ввовд! Повторите еще раз");
+                goto Label_LabNat;
+            }
+
+        Label_LabWat:
+            Console.WriteLine("Введите лабораторный модуль в водонасыщеном состоянии");
+            if (Double.TryParse(Console.ReadLine(), out res))
+            {
+                mon.LabModuleWarter = res;
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ввовд! Повторите еще раз");
+                goto Label_LabWat;
+            }
+            Console.Clear();
+            Console.WriteLine();
+                return mon;
+        }
+
         static void Main(string[] args)
         {
+
             Console.WindowHeight = 50;
             Console.WindowWidth = 100;
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.Clear();
+
+            list = new List<Monolit>();
 
             bool flag = true;
             while (flag)
@@ -45,13 +104,14 @@ namespace ModulGeo
 
                 switch (command)
                 {
-                    case "1":      // ветка создания монолита      
-                        TestAddMonolits();
+                    case "1":      // ветка создания монолита
+                        Console.WriteLine();
+                        list.Add(CreateMonolit());                        
                         Console.WriteLine();
                         break;
 
                     case "2":       // ветка для распечатки занесенных монолитов                        
-                        Console.WriteLine();                                            
+                        Console.WriteLine();
                         Console.WriteLine(PrintTable.PrintData(list));
                         Console.WriteLine();
                         break;
@@ -63,6 +123,10 @@ namespace ModulGeo
 
                     case "4":   // ветка для сохранения данных в файл
                         WritrToFile(PrintTable.PrintData(list));
+                        break;
+
+                    case "5":   // ветка для редактирования монолита
+                        
                         break;
 
                     case "q":   // ветка для завершения работы приложения
