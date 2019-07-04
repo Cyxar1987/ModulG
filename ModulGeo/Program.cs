@@ -84,6 +84,22 @@ namespace ModulGeo
             Console.WriteLine();
                 return mon;
         }
+        //  Метод для редактирования указанного монолита
+        static void EditMonolit(int index)
+        {
+            if (list != null)
+            {
+                if (index > 0 && index <= list.Count)
+                {
+                    index--;
+                    
+                }
+            }
+            else
+            {
+                Console.WriteLine("Список монолитов пуст");
+            }
+        }
 
         static void Main(string[] args)
         {
