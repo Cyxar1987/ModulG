@@ -37,7 +37,7 @@ namespace ModulGeo
         static Monolit CreateMonolit()
         {
             mon = new Monolit();
-            double res;          
+            double res;
 
             Console.WriteLine("Введите номер скважины");
             mon.MineName = Console.ReadLine();
@@ -79,8 +79,7 @@ namespace ModulGeo
             {
                 Console.WriteLine("Некорректный ввовд! Повторите еще раз");
                 goto Label_LabWat;
-            }
-            Console.Clear();
+            }            
             Console.WriteLine();
                 return mon;
         }
@@ -92,7 +91,11 @@ namespace ModulGeo
                 if (index > 0 && index <= list.Count)
                 {
                     index--;
-                    
+                    list[index] = CreateMonolit();
+                }
+                else
+                {
+                    Console.WriteLine("Монолит с таким номером отсутствует");
                 }
             }
             else
@@ -101,9 +104,10 @@ namespace ModulGeo
             }
         }
 
+
+
         static void Main(string[] args)
         {
-
             Console.WindowHeight = 50;
             Console.WindowWidth = 100;
             Console.BackgroundColor = ConsoleColor.White;
@@ -142,7 +146,8 @@ namespace ModulGeo
                         break;
 
                     case "5":   // ветка для редактирования монолита
-                        
+                        int a = Int32.Parse(Console.ReadLine());
+                        EditMonolit(a);
                         break;
 
                     case "q":   // ветка для завершения работы приложения
