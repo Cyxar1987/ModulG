@@ -27,7 +27,7 @@ namespace ModulGeo
         //  Метод для записи данных в файл
         static void WritrToFile(StringBuilder stringBuilder)
         {
-            using (StreamWriter writer = new StreamWriter("Result2.txt"))
+            using (StreamWriter writer = new StreamWriter("Result3.txt"))
             {
                 writer.Write(stringBuilder);
             }

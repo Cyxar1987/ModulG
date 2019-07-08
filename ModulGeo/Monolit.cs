@@ -16,7 +16,8 @@ namespace ModulGeo
     class Monolit
     {
         string mineName;                // Номер скважины
-        public GruntName gruntName;            // Наименование грунта
+        public GruntName gruntName;     // Наименование грунта
+        double depth;                   // Глубина монолита
         double e;                       // коэффициент пористости
         double labModulNature;          // лабораторный модуль (естественный)
         double labModuleWarter;         // лабораторный модуль (водонасыщенный)
@@ -29,13 +30,14 @@ namespace ModulGeo
             MineName = "1";
             gruntName = GruntName.Suglinok;
         }
-        public Monolit(string mName, double e, double LabModulNat, double LabModulWart)
+        public Monolit(string mName, double d, int indexForGrunt, double e, double LabModulNat, double LabModulWart)
         {
             MineName = mName;
-            gruntName = GruntName.Glina;
+            Depth = d;
+            SetGruntName(indexForGrunt);
             E = e;
             LabModulNature = LabModulNat;
-            LabModuleWarter = LabModulWart;            
+            LabModuleWarter = LabModulWart;
         }
 
         public string MineName { get => mineName; set => mineName = value; }
@@ -45,6 +47,27 @@ namespace ModulGeo
         public double KM { get => kM; set => kM = value; }
         public double LabModulNature_kM { get => labModulNature_kM; set => labModulNature_kM = value; }
         public double LabModulWarter_kM { get => labModulWarter_kM; set => labModulWarter_kM = value; }
+        public double Depth { get => depth; set => depth = value; }
+
+        // Метод для установки типа грунта
+        private void SetGruntName(int index)
+        {
+            switch (index)
+            {
+                case 1:
+                    gruntName = GruntName.Supec;
+                    break;
+                case 2:
+                    gruntName = GruntName.Suglinok;
+                    break;
+                case 3:
+                    gruntName = GruntName.Glina;
+                    break;
+                default:
+                    Console.WriteLine("Неправильный ввод для типа грунта");
+                    break;
+            }
+        }
 
         public override string ToString()
         {
